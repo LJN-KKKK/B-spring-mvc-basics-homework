@@ -1,4 +1,4 @@
-package com.thoughtworks.capacity.gtb.mvc;
+package com.thoughtworks.capacity.gtb.mvc.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +12,8 @@ import java.util.Set;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(UserExistException.class)
-    public ResponseEntity<ErrorResult> handle(UserExistException ex) {
+    @ExceptionHandler({UserExistException.class, LoginException.class})
+    public ResponseEntity<ErrorResult> handle(RuntimeException ex) {
         ErrorResult errorResult = new ErrorResult(ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResult);
     }
